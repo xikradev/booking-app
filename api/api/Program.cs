@@ -3,6 +3,7 @@ using api.Data.Context;
 using api.Models;
 using api.Services;
 using api.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -69,7 +70,11 @@ builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(builder.Configuration);
 builder.Services.AddSwaggerGen();
 
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.Name = "token";
+    });
 
 var app = builder.Build();
 
@@ -82,7 +87,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(options =>
 {
-    options.WithOrigins("http://localhost:5174");
+    options.WithOrigins("http://localhost:5173");
     options.AllowAnyMethod();
     options.AllowAnyHeader();
 });

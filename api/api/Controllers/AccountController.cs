@@ -1,7 +1,13 @@
 ﻿using api.Dto.Request;
 using api.Dto.Response;
+using api.Models;
 using api.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace api.Controllers
 {
@@ -10,10 +16,12 @@ namespace api.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IIdentityService _service;
+        private readonly UserManager<User> _userManager;
 
-        public AccountController(IIdentityService service)
+        public AccountController(IIdentityService service, UserManager<User> userManager)
         {
             _service = service;
+            _userManager = userManager;
         }
 
         [HttpPost("register")]
@@ -45,17 +53,34 @@ namespace api.Controllers
             var result = await _service.UserLogin(loginRequest);
             if (result.Success)
             {
-                
 
-                return Ok(new {result.Token});
+                User user = _userManager.FindByEmailAsync(loginRequest.Email).Result;
+
+                return Ok(new { Username = user.Fullname, Email = user.Email });
+
+                Response.Cookies.Append("token", result.Token, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict
+                });
+
+                return Ok(new {Username = user.Fullname, Email = user.Email});
             }
             return Unauthorized(result);
         }
 
-        [HttpGet]
-        public async Task<ActionResult> teste()
+        [HttpGet("/profile")]
+        [Authorize]
+        public async Task<ActionResult> getProfile()
         {
-            return Ok("teste");
+            User user = _userManager.GetUserAsync(User).Result;
+            if(user == null)
+            {
+                return NotFound("User Not Found.");
+            }
+
+            return Ok(new { Username = user.Fullname, Email = user.Email });
         }
     }
 }

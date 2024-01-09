@@ -3,6 +3,7 @@ using api.Dto.Request;
 using api.Dto.Response;
 using api.Models;
 using api.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using System.IdentityModel.Tokens.Jwt;
@@ -52,6 +53,7 @@ namespace api.Services
             if (result.Succeeded)
             {
                 return await GenerateToken(userLogin.Email);
+
             }
 
             var response = new UserLoginResponse(result.Succeeded);
@@ -86,6 +88,7 @@ namespace api.Services
             );
             var token = new JwtSecurityTokenHandler().WriteToken(jwt);
 
+
             return new UserLoginResponse
                 (
                     success: true,
@@ -110,6 +113,8 @@ namespace api.Services
             {
                 claims.Add(new Claim("role", role));
             }
+
+
             return claims;
         }
     }

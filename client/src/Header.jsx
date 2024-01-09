@@ -1,6 +1,9 @@
+import { useContext } from "react"
 import { Link } from "react-router-dom"
+import {UserContext} from  './UserContext'
 
 const Header = () => {
+    const {user} = useContext(UserContext)
     return (
         <header className='flex justify-between'>
             <a href="" className="flex items-center gap-1">
@@ -24,6 +27,9 @@ const Header = () => {
                 <div className='w-6 bg-slate-300 rounded-full'>
                     <img src="./src/assets/user-icon.png" alt="usericon" />
                 </div>
+                {!!user && (
+                    user.username
+                )}
             </Link>
         </header>
     )
