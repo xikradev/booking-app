@@ -6,10 +6,10 @@ const Header = () => {
     const {user} = useContext(UserContext)
     return (
         <header className='flex justify-between'>
-            <a href="" className="flex items-center gap-1">
+            <Link to={"/"} className="flex items-center gap-1 p-2 border border-2 border-blue-900 rounded rounded-lg">
                 <img src='./src/assets/booking-logo.png' alt="" className='w-8 h-8' />
                 <span className='font-bold text-blue-900 text-xl'>BookSnap</span>
-            </a>
+            </Link>
             <div className='flex rounded-full py-2 px-4 border border-gray-300 gap-2 shadow-md shadow-gray-500 items-center'>
                 <div>Anywhere</div>
                 <div className="border border-l border-gray-300 h-full"></div>
@@ -20,7 +20,7 @@ const Header = () => {
                     <img src="./src/assets/search-icon.png" alt="" />
                 </button>
             </div>
-            <Link to={"/login"} className='flex rounded-full py-2 px-4 border border-gray-300 gap-2 items-center'>
+            <Link to={user ? "/account": "/login"} className='flex rounded-full py-2 px-4 border border-gray-300 gap-2 items-center'>
                 <div className='w-6'>
                     <img src="./src/assets/menu.png" alt="menu" />
                 </div>

@@ -7,15 +7,15 @@ export const UserContext = createContext({});
 export const UserContextProvider = ({children}) => {
 
     const [user, setUser] = useState(null);
-    useEffect(() =>{
-        if(!user){
-            axios.get("/profile").then(({data}) =>{
-                setUser(data);
-                console.log(`/profile: ${data}`);
-            });
-        }
-    },[])
 
+    useEffect(() => {
+        console.log("context")
+        if (!user) {
+          axios.get('account/profile').then(({data}) =>{
+            setUser(data);
+          });
+        }
+      }, []);
     return (
         <UserContext.Provider value={{user, setUser}}>
             {children}

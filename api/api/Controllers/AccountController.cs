@@ -17,11 +17,13 @@ namespace api.Controllers
     {
         private readonly IIdentityService _service;
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public AccountController(IIdentityService service, UserManager<User> userManager)
+        public AccountController(IIdentityService service, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _service = service;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpPost("register")]
@@ -57,20 +59,11 @@ namespace api.Controllers
                 User user = _userManager.FindByEmailAsync(loginRequest.Email).Result;
 
                 return Ok(new { Username = user.Fullname, Email = user.Email });
-
-                Response.Cookies.Append("token", result.Token, new CookieOptions
-                {
-                    HttpOnly = true,
-                    Secure = true,
-                    SameSite = SameSiteMode.Strict
-                });
-
-                return Ok(new {Username = user.Fullname, Email = user.Email});
             }
             return Unauthorized(result);
         }
 
-        [HttpGet("/profile")]
+        [HttpGet("profile")]
         [Authorize]
         public async Task<ActionResult> getProfile()
         {
@@ -81,6 +74,16 @@ namespace api.Controllers
             }
 
             return Ok(new { Username = user.Fullname, Email = user.Email });
+        }
+
+        [HttpPost("logout")]
+        public async Task<ActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            Response.Cookies.Delete(".AspNetCore.Identity.Application");
+
+            return Ok(new { Message = "Successful logout." });
         }
     }
 }
