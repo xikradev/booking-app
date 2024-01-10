@@ -1,6 +1,8 @@
-﻿namespace api.Domain.Models
+﻿using api.Domain.Models;
+
+namespace api.Domain.Dto.Response
 {
-    public class Place
+    public class PlaceResponse
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -11,11 +13,8 @@
         public int MaxGuest { get; set; }
         public int AddressId { get; set; }
 
-
-        public virtual Address Address { get; set; }
-        public virtual ICollection<Photo> Photos { get; set; }
-        public virtual ICollection<PlacePerk> PlacePerks { get; set; }
-
-
+        public virtual AddressResponse Address { get; set; }
+        public virtual ICollection<PhotoResponse> Photos { get; set; }
+        public virtual ICollection<PerkResponse> Perks { get; set; }
     }
 }

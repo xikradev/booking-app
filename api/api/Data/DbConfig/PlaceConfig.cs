@@ -35,10 +35,6 @@ namespace api.Data.DbConfig
             builder.HasMany(p => p.Photos)
                 .WithOne(ph => ph.Place)
                 .HasForeignKey(ph => ph.PlaceId);
-
-            builder.HasMany(p => p.Perks)
-                .WithMany(perk => perk.Places)
-                .UsingEntity(j => j.ToTable("PlacePerk"));
         }
     }
 }

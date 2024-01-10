@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Data.Context;
 
@@ -11,9 +12,10 @@ using api.Data.Context;
 namespace api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240110231537_Generate DB")]
+    partial class GenerateDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +24,7 @@ namespace api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("api.Models.Address", b =>
+            modelBuilder.Entity("api.Domain.Models.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,7 +56,7 @@ namespace api.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("api.Models.Perk", b =>
+            modelBuilder.Entity("api.Domain.Models.Perk", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,7 +74,7 @@ namespace api.Migrations
                     b.ToTable("Perks");
                 });
 
-            modelBuilder.Entity("api.Models.Photo", b =>
+            modelBuilder.Entity("api.Domain.Models.Photo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -94,7 +96,7 @@ namespace api.Migrations
                     b.ToTable("Photos");
                 });
 
-            modelBuilder.Entity("api.Models.Place", b =>
+            modelBuilder.Entity("api.Domain.Models.Place", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -136,6 +138,21 @@ namespace api.Migrations
                         .IsUnique();
 
                     b.ToTable("Places");
+                });
+
+            modelBuilder.Entity("api.Domain.Models.PlacePerk", b =>
+                {
+                    b.Property<int>("PerkId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlaceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PerkId", "PlaceId");
+
+                    b.HasIndex("PlaceId");
+
+                    b.ToTable("PlacePerk");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -342,22 +359,7 @@ namespace api.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("PerkPlace", b =>
-                {
-                    b.Property<int>("PerksId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlacesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PerksId", "PlacesId");
-
-                    b.HasIndex("PlacesId");
-
-                    b.ToTable("PlacePerk", (string)null);
-                });
-
-            modelBuilder.Entity("api.Models.User", b =>
+            modelBuilder.Entity("api.Domain.Models.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
@@ -369,9 +371,9 @@ namespace api.Migrations
                     b.HasDiscriminator().HasValue("User");
                 });
 
-            modelBuilder.Entity("api.Models.Photo", b =>
+            modelBuilder.Entity("api.Domain.Models.Photo", b =>
                 {
-                    b.HasOne("api.Models.Place", "Place")
+                    b.HasOne("api.Domain.Models.Place", "Place")
                         .WithMany("Photos")
                         .HasForeignKey("PlaceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -380,15 +382,34 @@ namespace api.Migrations
                     b.Navigation("Place");
                 });
 
-            modelBuilder.Entity("api.Models.Place", b =>
+            modelBuilder.Entity("api.Domain.Models.Place", b =>
                 {
-                    b.HasOne("api.Models.Address", "Address")
+                    b.HasOne("api.Domain.Models.Address", "Address")
                         .WithOne("Place")
-                        .HasForeignKey("api.Models.Place", "AddressId")
+                        .HasForeignKey("api.Domain.Models.Place", "AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("api.Domain.Models.PlacePerk", b =>
+                {
+                    b.HasOne("api.Domain.Models.Perk", "Perk")
+                        .WithMany("PlacePerks")
+                        .HasForeignKey("PerkId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("api.Domain.Models.Place", "Place")
+                        .WithMany("PlacePerks")
+                        .HasForeignKey("PlaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Perk");
+
+                    b.Navigation("Place");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -442,30 +463,22 @@ namespace api.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PerkPlace", b =>
-                {
-                    b.HasOne("api.Models.Perk", null)
-                        .WithMany()
-                        .HasForeignKey("PerksId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("api.Models.Place", null)
-                        .WithMany()
-                        .HasForeignKey("PlacesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("api.Models.Address", b =>
+            modelBuilder.Entity("api.Domain.Models.Address", b =>
                 {
                     b.Navigation("Place")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("api.Models.Place", b =>
+            modelBuilder.Entity("api.Domain.Models.Perk", b =>
+                {
+                    b.Navigation("PlacePerks");
+                });
+
+            modelBuilder.Entity("api.Domain.Models.Place", b =>
                 {
                     b.Navigation("Photos");
+
+                    b.Navigation("PlacePerks");
                 });
 #pragma warning restore 612, 618
         }

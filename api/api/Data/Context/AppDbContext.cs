@@ -28,6 +28,7 @@ namespace api.Data.Context
             modelBuilder.ApplyConfiguration(new AddressConfig());
             modelBuilder.ApplyConfiguration(new  PhotoConfig());
             modelBuilder.ApplyConfiguration(new PerkConfig());
+            modelBuilder.ApplyConfiguration(new PlacePerkConfig());
         }
     }
 }
