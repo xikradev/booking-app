@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace api.Dto.Request
+namespace api.Domain.Dto.Request
 {
     public class UserLoginRequest
     {

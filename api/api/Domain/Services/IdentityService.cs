@@ -1,15 +1,15 @@
 ﻿using api.Config;
-using api.Dto.Request;
-using api.Dto.Response;
-using api.Models;
-using api.Services.Interfaces;
+using api.Domain.Dto.Request;
+using api.Domain.Dto.Response;
+using api.Domain.Interfaces;
+using api.Domain.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace api.Services
+namespace api.Domain.Services
 {
     public class IdentityService : IIdentityService
     {

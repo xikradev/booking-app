@@ -1,5 +1,5 @@
 ﻿using api.Data.DbConfig;
-using api.Models;
+using api.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

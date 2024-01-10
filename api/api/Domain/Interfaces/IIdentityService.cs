@@ -1,7 +1,7 @@
-﻿using api.Dto.Request;
-using api.Dto.Response;
+﻿using api.Domain.Dto.Request;
+using api.Domain.Dto.Response;
 
-namespace api.Services.Interfaces
+namespace api.Domain.Interfaces
 {
     public interface IIdentityService
     {

@@ -1,13 +1,13 @@
-﻿using api.Dto.Request;
-using api.Dto.Response;
-using api.Models;
-using api.Services.Interfaces;
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using api.Domain.Dto.Request;
+using api.Domain.Dto.Response;
+using api.Domain.Models;
+using api.Domain.Interfaces;
 
 namespace api.Controllers
 {

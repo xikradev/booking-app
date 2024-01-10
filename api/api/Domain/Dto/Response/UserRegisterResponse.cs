@@ -1,4 +1,4 @@
-﻿namespace api.Dto.Response
+﻿namespace api.Domain.Dto.Response
 {
     public class UserRegisterResponse
     {

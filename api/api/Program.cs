@@ -1,8 +1,9 @@
 using api.Config;
 using api.Data.Context;
-using api.Models;
-using api.Services;
-using api.Services.Interfaces;
+using api.Domain.Interfaces;
+using api.Domain.Models;
+using api.Domain.Services;
+using api.Profiles;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -69,6 +70,12 @@ builder.Services.AddControllers();
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(builder.Configuration);
 builder.Services.AddSwaggerGen();
+builder.Services.AddServices();
+
+builder.Services.AddAutoMapper(config =>
+{
+    config.AddProfile<AddressProfile>();
+});
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
