@@ -1,4 +1,5 @@
-﻿using api.Models;
+﻿using api.Data.DbConfig;
+using api.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -14,5 +15,19 @@ namespace api.Data.Context
             
         }
         public DbSet<User> users { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Photo> Photos { get; set; }
+        public DbSet<Perk> Perks { get; set; }
+        public DbSet<Place> Places { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new PlaceConfig());
+            modelBuilder.ApplyConfiguration(new AddressConfig());
+            modelBuilder.ApplyConfiguration(new  PhotoConfig());
+            modelBuilder.ApplyConfiguration(new PerkConfig());
+        }
     }
 }
