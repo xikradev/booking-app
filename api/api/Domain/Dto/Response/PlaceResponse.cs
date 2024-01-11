@@ -15,6 +15,6 @@ namespace api.Domain.Dto.Response
 
         public virtual AddressResponse Address { get; set; }
         public virtual ICollection<PhotoResponse> Photos { get; set; }
-        public virtual ICollection<PerkResponse> Perks { get; set; }
+        public virtual ICollection<PlacePerkResponse> PlacePerks { get; set; }
     }
 }

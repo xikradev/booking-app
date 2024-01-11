@@ -19,6 +19,7 @@ namespace api.Data.Context
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Perk> Perks { get; set; }
         public DbSet<Place> Places { get; set; }
+        public DbSet<PlacePerk> PlacePerks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

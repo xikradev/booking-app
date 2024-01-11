@@ -150,7 +150,7 @@ namespace api.Migrations
 
                     b.HasIndex("PlaceId");
 
-                    b.ToTable("PlacePerk");
+                    b.ToTable("PlacePerks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

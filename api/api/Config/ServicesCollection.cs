@@ -11,12 +11,14 @@ namespace api.Config
         {
             #region Service
             services.AddScoped<IAddressService, AddressService>();
-            services.AddScoped<IPlaceService, PLaceService>();
+            services.AddScoped<IPlaceService, PlaceService>();
+            services.AddScoped<IPerkService, PerkService>();
             #endregion
 
             #region Repository
             services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<IPlaceRepository, PlaceRepository>();
+            services.AddScoped<IPerkRepository, PerkRepository>();
             #endregion
         }
     }

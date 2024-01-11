@@ -53,7 +53,7 @@ namespace api.Controllers
             {
                 return NotFound("No Address data was found in the list.");
             }
-            var response  = _mapper.Map<List<AddressResponse>>(lstAddress).OrderBy(x => x.Id).ToList();
+            var response  = _mapper.Map<List<AddressResponse>>(lstAddress).ToList();
             return Ok(response);
         }
 

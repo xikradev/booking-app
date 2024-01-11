@@ -75,6 +75,7 @@ builder.Services.AddServices();
 builder.Services.AddAutoMapper(config =>
 {
     config.AddProfile<AddressProfile>();
+    config.AddProfile<PerkProfile>();
 });
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

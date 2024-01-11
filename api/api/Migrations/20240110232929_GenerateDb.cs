@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace api.Migrations
 {
-    public partial class GenerateDB : Migration
+    public partial class GenerateDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -231,7 +231,7 @@ namespace api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlacePerk",
+                name: "PlacePerks",
                 columns: table => new
                 {
                     PlaceId = table.Column<int>(type: "int", nullable: false),
@@ -239,15 +239,15 @@ namespace api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlacePerk", x => new { x.PerkId, x.PlaceId });
+                    table.PrimaryKey("PK_PlacePerks", x => new { x.PerkId, x.PlaceId });
                     table.ForeignKey(
-                        name: "FK_PlacePerk_Perks_PerkId",
+                        name: "FK_PlacePerks_Perks_PerkId",
                         column: x => x.PerkId,
                         principalTable: "Perks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PlacePerk_Places_PlaceId",
+                        name: "FK_PlacePerks_Places_PlaceId",
                         column: x => x.PlaceId,
                         principalTable: "Places",
                         principalColumn: "Id",
@@ -299,8 +299,8 @@ namespace api.Migrations
                 column: "PlaceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlacePerk_PlaceId",
-                table: "PlacePerk",
+                name: "IX_PlacePerks_PlaceId",
+                table: "PlacePerks",
                 column: "PlaceId");
 
             migrationBuilder.CreateIndex(
@@ -331,7 +331,7 @@ namespace api.Migrations
                 name: "Photos");
 
             migrationBuilder.DropTable(
-                name: "PlacePerk");
+                name: "PlacePerks");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

@@ -12,8 +12,8 @@ using api.Data.Context;
 namespace api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240110231537_Generate DB")]
-    partial class GenerateDB
+    [Migration("20240110232929_GenerateDb")]
+    partial class GenerateDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -152,7 +152,7 @@ namespace api.Migrations
 
                     b.HasIndex("PlaceId");
 
-                    b.ToTable("PlacePerk");
+                    b.ToTable("PlacePerks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -4,11 +4,11 @@ using api.Domain.Models;
 
 namespace api.Domain.Services
 {
-    public class PLaceService : IPlaceService
+    public class PlaceService : IPlaceService
     {
         private readonly IPlaceRepository _repository;
 
-        public PLaceService(IPlaceRepository repository)
+        public PlaceService(IPlaceRepository repository)
         {
             _repository = repository;
         }
