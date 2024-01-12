@@ -3,6 +3,7 @@ using api.Domain.Dto.Response;
 using api.Domain.Interfaces;
 using api.Domain.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers

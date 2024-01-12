@@ -11,7 +11,7 @@ namespace api.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
-    [Authorize]
+    
     public class AddressController : ControllerBase
     {
         private readonly IAddressService _service;

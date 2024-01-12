@@ -1,6 +1,7 @@
 ﻿using api.Data.Interfaces;
 using api.Domain.Interfaces;
 using api.Domain.Models;
+using api.Domain.Viewer;
 
 namespace api.Domain.Services
 {
@@ -23,12 +24,12 @@ namespace api.Domain.Services
             _repository.Delete(place);
         }
 
-        public Place? Find(int id)
+        public PlaceViewer? Find(int id)
         {
             return _repository.Find(id);
         }
 
-        public IEnumerable<Place> FindAll()
+        public IEnumerable<PlaceViewer> FindAll()
         {
             return _repository.FindAll();
         }

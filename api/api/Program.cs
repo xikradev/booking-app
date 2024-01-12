@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -67,6 +68,9 @@ builder.Services.AddScoped<IIdentityService, IdentityService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+        x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(builder.Configuration);
 builder.Services.AddSwaggerGen();
@@ -76,6 +80,8 @@ builder.Services.AddAutoMapper(config =>
 {
     config.AddProfile<AddressProfile>();
     config.AddProfile<PerkProfile>();
+    config.AddProfile<PhotoProfile>();
+    config.AddProfile<PlaceProfile>();
 });
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

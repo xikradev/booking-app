@@ -13,12 +13,14 @@ namespace api.Config
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IPlaceService, PlaceService>();
             services.AddScoped<IPerkService, PerkService>();
+            services.AddScoped<IPhotoService, PhotoService>();
             #endregion
 
             #region Repository
             services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<IPlaceRepository, PlaceRepository>();
             services.AddScoped<IPerkRepository, PerkRepository>();
+            services.AddScoped<IPhotoRepository, PhotoRepository>();
             #endregion
         }
     }

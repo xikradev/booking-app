@@ -1,8 +1,9 @@
-﻿using api.Domain.Models;
+﻿using api.Domain.Dto.Response;
+using api.Domain.Models;
 
-namespace api.Domain.Dto.Response
+namespace api.Domain.Viewer
 {
-    public class PlaceResponse
+    public class PlaceViewer
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -13,8 +14,8 @@ namespace api.Domain.Dto.Response
         public int MaxGuest { get; set; }
         public int AddressId { get; set; }
 
-        public virtual AddressResponse Address { get; set; }
-        public virtual ICollection<PhotoResponse> Photos { get; set; }
-        public virtual ICollection<PerkResponse> Perks { get; set; }
+        public virtual Address Address { get; set; }
+        public virtual ICollection<Photo> Photos { get; set; }
+        public virtual ICollection<Perk> Perks { get; set; }
     }
 }
