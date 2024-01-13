@@ -14,6 +14,7 @@ namespace api.Config
             services.AddScoped<IPlaceService, PlaceService>();
             services.AddScoped<IPerkService, PerkService>();
             services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<IPlacePerkService, PlacePerkService>();
             #endregion
 
             #region Repository
@@ -21,6 +22,7 @@ namespace api.Config
             services.AddScoped<IPlaceRepository, PlaceRepository>();
             services.AddScoped<IPerkRepository, PerkRepository>();
             services.AddScoped<IPhotoRepository, PhotoRepository>();
+            services.AddScoped<IPlacePerkRepository, PlacePerkRepository>();
             #endregion
         }
     }

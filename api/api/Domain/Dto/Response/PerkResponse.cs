@@ -1,4 +1,5 @@
 ﻿using api.Domain.Models;
+using System.Text.Json.Serialization;
 
 namespace api.Domain.Dto.Response
 {
