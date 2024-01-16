@@ -1,6 +1,7 @@
 ﻿using api.Data.Interfaces;
 using api.Domain.Interfaces;
 using api.Domain.Models;
+using api.Domain.Viewer;
 
 namespace api.Domain.Services
 {
@@ -23,19 +24,24 @@ namespace api.Domain.Services
             _repository.Delete(placePerk);
         }
 
-        public IEnumerable<PlacePerk> FindAll()
+        public IEnumerable<PlacePerkViewer> FindAll()
         {
             return _repository.FindAll();
         }
 
-        public PlacePerk? FindByPerk(int id)
+        public IEnumerable<PlacePerkViewer> FindByPerk(int id)
         {
             return _repository.FindByPerk(id);
         }
 
-        public PlacePerk? FindByPlace(int id)
+        public IEnumerable<PlacePerkViewer> FindByPlace(int id)
         {
             return _repository.FindByPlace(id);
+        }
+
+        public PlacePerkViewer? FindByPlacePerk(int placeId, int perkId)
+        {
+            return _repository.FindByPlacePerk(placeId, perkId);
         }
 
         public void Update(PlacePerk placePerk)

@@ -1,6 +1,7 @@
 ﻿using api.Data.Context;
 using api.Data.Interfaces;
 using api.Domain.Models;
+using api.Domain.Viewer;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Data.Repositories
@@ -26,25 +27,88 @@ namespace api.Data.Repositories
             _context.SaveChanges();
         }
 
-        public PlacePerk? FindByPerk(int id)
+        public IEnumerable<PlacePerkViewer> FindByPerk(int id)
         {
-            return _context.PlacePerks.FirstOrDefault(x => x.PerkId == id);
+            return _context.PlacePerks
+                .Include(placePerk => placePerk.Place)
+                .Include(placePerk => placePerk.Perk)
+                .Select(placePerk => new PlacePerkViewer
+                {
+                    PlaceId = placePerk.PlaceId,
+                    Title = placePerk.Place.Title,
+                    Description = placePerk.Place.Description,
+                    PerkId = placePerk.PerkId,
+                    Perk = new Perk
+                    {
+                        Id = placePerk.PerkId,
+                        Name = placePerk.Perk.Name
+                    }
+                }).Where(x => x.PerkId == id);
         }
 
-        public PlacePerk? FindByPlace(int id)
+        public IEnumerable<PlacePerkViewer> FindByPlace(int id)
         {
-            return _context.PlacePerks.FirstOrDefault(x => x.PlaceId == id);
+            return _context.PlacePerks
+                .Include(placePerk => placePerk.Place)
+                .Include(placePerk => placePerk.Perk)
+                .Select(placePerk => new PlacePerkViewer
+                {
+                    PlaceId = placePerk.PlaceId,
+                    Title = placePerk.Place.Title,
+                    Description = placePerk.Place.Description,
+                    PerkId = placePerk.PerkId,
+                    Perk = new Perk
+                    {
+                        Id = placePerk.PerkId,
+                        Name = placePerk.Perk.Name
+                    }
+                }).Where(x => x.PlaceId == id); ;
         }
 
-        public IEnumerable<PlacePerk> FindAll()
+        public IEnumerable<PlacePerkViewer> FindAll()
         {
-            return _context.PlacePerks.ToList();
+            var placePerkLst =  _context.PlacePerks
+                .Include(placePerk => placePerk.Place)
+                .Include(placePerk => placePerk.Perk)
+                .Select(placePerk => new PlacePerkViewer
+                {
+                    PlaceId = placePerk.PlaceId,
+                    Title = placePerk.Place.Title,
+                    Description = placePerk.Place.Description,
+                    PerkId = placePerk.PerkId,
+                    Perk = new Perk
+                    {
+                        Id = placePerk.PerkId,
+                        Name = placePerk.Perk.Name
+                    }
+                }).ToList();
+
+            return placePerkLst;
         }
 
         public void Update(PlacePerk placePerk)
         {
             _context.Entry(placePerk).State = EntityState.Modified;
             _context.SaveChanges();
+        }
+
+        public PlacePerkViewer? FindByPlacePerk(int placeId, int perkId)
+        {
+            return _context.PlacePerks
+                .Include(placePerk => placePerk.Place)
+                .Include(placePerk => placePerk.Perk)
+                .Select(placePerk => new PlacePerkViewer
+                {
+                    PlaceId = placePerk.PlaceId,
+                    Title = placePerk.Place.Title,
+                    Description = placePerk.Place.Description,
+                    PerkId = placePerk.PerkId,
+                    Perk = new Perk
+                    {
+                        Id = placePerk.PerkId,
+                        Name = placePerk.Perk.Name
+                    }
+                }).FirstOrDefault(x => x.PerkId == perkId && x.PlaceId == placeId);
         }
     }
 }

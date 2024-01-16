@@ -83,7 +83,7 @@ builder.Services.AddAutoMapper(config =>
     config.AddProfile<PhotoProfile>();
     config.AddProfile<PlaceProfile>();
     config.AddProfile<PlacePerkProfile>();
-});
+},typeof(Program));
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
