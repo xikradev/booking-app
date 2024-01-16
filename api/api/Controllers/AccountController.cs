@@ -55,7 +55,9 @@ namespace api.Controllers
             var result = await _service.UserLogin(loginRequest);
             if (result.Success)
             {
+                User user = _userManager.FindByEmailAsync(loginRequest.Email).Result;
 
+                return Ok(new { Username = user.Fullname, Email = user.Email });
                 return Ok(result);
             }
             return Unauthorized(result);

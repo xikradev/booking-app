@@ -13,6 +13,7 @@ namespace api.Profiles
             CreateMap<PlacePerkViewer, PlacePerkResponse>()
                 .ForMember(dto => dto.Perk, opt => opt.MapFrom(src => src.Perk));
             CreateMap<PlacePerkRequest, PlacePerk>();
+            CreateMap<PlacePerkViewer, PlacePerk>();
         }
     }
 }

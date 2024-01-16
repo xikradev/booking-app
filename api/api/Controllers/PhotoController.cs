@@ -33,7 +33,7 @@ namespace api.Controllers
                 Photo photo = _mapper.Map<Photo>(request);
                 _service.Add(photo);
 
-                return CreatedAtAction(nameof(GetById) ,new {Id = photo.Id} , photo);
+                return CreatedAtAction(nameof(GetById) ,new {Id = photo.Id} , request);
 
             }catch (Exception ex)
             {

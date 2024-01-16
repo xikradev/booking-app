@@ -34,7 +34,7 @@ namespace api.Controllers
                 Place place = _mapper.Map<Place>(request);
                 _service.Add(place);
 
-                return CreatedAtAction(nameof(GetById), new {Id = place.Id}, place);
+                return CreatedAtAction(nameof(GetById), new {Id = place.Id}, request);
             }catch (Exception ex)
             {
                 Console.WriteLine($"An exception occurred: {ex.Message}");

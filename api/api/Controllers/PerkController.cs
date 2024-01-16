@@ -34,7 +34,7 @@ namespace api.Controllers
                 Perk perk = _mapper.Map<Perk>(request);
                 _service.Add(perk);
 
-                return CreatedAtAction("GetById", new {id = perk.Id}, perk);
+                return CreatedAtAction("GetById", new {id = perk.Id}, request);
             }catch (Exception ex)
             {
                 Console.WriteLine($"An exception occurred: {ex.Message}");

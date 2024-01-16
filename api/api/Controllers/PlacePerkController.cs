@@ -85,5 +85,35 @@ namespace api.Controllers
             var response = _mapper.Map<List<PlacePerkResponse>>(lstPlacePerk);
             return Ok(response);
         }
+
+        [HttpDelete]
+        public IActionResult Delete([FromQuery] int placeId, [FromQuery] int perkId)
+        {
+            try
+            {
+                if (placeId > 0 && perkId > 0)
+                {
+
+                    var foundedPlacePerk = _service.FindByPlacePerk(placeId, perkId);
+                    if (foundedPlacePerk == null)
+                    {
+                        return NotFound($"PlacePerk with PlaceId: {placeId} and PerkId {perkId} not found");
+                    }
+                    var placePerk = _mapper.Map<PlacePerk>(foundedPlacePerk);
+                    _service.Delete(placePerk);
+                    return NoContent();
+
+                }
+                else
+                {
+                    return BadRequest("palceId and perkId params are required");
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"An exception occurred: {ex.Message}");
+                return StatusCode(500, "An internal error occurred while processing the request.");
+            }
+        }
     }
 }

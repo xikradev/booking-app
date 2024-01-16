@@ -35,7 +35,7 @@ namespace api.Controllers
                 Address address = _mapper.Map<Address>(request);
                 _service.Add(address);
                 
-                return CreatedAtAction("GetById", new {id =  address.Id}, address);
+                return CreatedAtAction("GetById", new {id =  address.Id}, request);
 
             }catch (Exception ex)
             {
