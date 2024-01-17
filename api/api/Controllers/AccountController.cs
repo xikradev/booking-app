@@ -8,9 +8,11 @@ using api.Domain.Dto.Request;
 using api.Domain.Dto.Response;
 using api.Domain.Models;
 using api.Domain.Interfaces;
+using Microsoft.AspNetCore.Cors;
 
 namespace api.Controllers
 {
+    [EnableCors("AllowSpecificOrigin")]
     [ApiController]
     [Route("[Controller]")]
     public class AccountController : ControllerBase

@@ -2,14 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-input[type="email"], input[type="password"],input[type="text"]{
+input[type="email"],
+input[type="password"],
+input[type="text"] {
     @apply w-full border my-1 py-2 px-3 rounded-2xl;
 }
 
-button{
+select {
+    @apply w-full border my-1 py-2 px-3 rounded-2xl text-gray-400;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+
+button {
     @apply bg-gray-300;
 }
 
-button.primary{
+button.primary {
     @apply bg-blue-900 p-2 w-full text-white rounded-2xl
 }

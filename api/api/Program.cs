@@ -76,6 +76,18 @@ builder.Services.AddAuthentication(builder.Configuration);
 builder.Services.AddSwaggerGen();
 builder.Services.AddServices();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", builder =>
+    {
+        builder
+            .WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
 builder.Services.AddAutoMapper(config =>
 {
     config.AddProfile<AddressProfile>();
@@ -100,12 +112,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(options =>
-{
-    options.WithOrigins("http://localhost:5173");
-    options.AllowAnyMethod();
-    options.AllowAnyHeader();
-});
+
 
 
 app.UseHttpsRedirection();
@@ -113,8 +120,8 @@ app.UseHttpsRedirection();
 
 
 app.UseAuthentication();
+app.UseCors("AllowSpecificOrigin");
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
