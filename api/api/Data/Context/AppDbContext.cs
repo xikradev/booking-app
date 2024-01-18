@@ -30,6 +30,15 @@ namespace api.Data.Context
             modelBuilder.ApplyConfiguration(new  PhotoConfig());
             modelBuilder.ApplyConfiguration(new PerkConfig());
             modelBuilder.ApplyConfiguration(new PlacePerkConfig());
+
+            modelBuilder.Entity<Perk>().HasData(
+                new Perk { Id = 1, Name = "Wifi" },
+                new Perk { Id = 2, Name = "Estacionamento gratuito" },
+                new Perk { Id = 3, Name = "TV" },
+                new Perk { Id = 4, Name = "entrada privada" },
+                new Perk { Id = 5, Name = "Radio" },
+                new Perk { Id = 4, Name = "Pets" }
+            );
         }
     }
 }
